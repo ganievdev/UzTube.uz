@@ -1,0 +1,239 @@
+{% extends 'layouts/layout.html' %}
+
+{% load static %}
+{% block head %}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/video.css' %}">
+{% endblock %}
+{% block content %}
+<div style="margin-top: 3.5rem;">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 col-none">
+            <div style="display: inline-block; position:absolute; left: 2%; top: -130%;">
+                <video width="700" height="600" controls="controls" poster="video/duel.jpg">
+                    <source src="video/duel.ogv" type='video/ogg; codecs="theora, vorbis"'>
+                    <source src="../../../media/{{ d.video }}" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+                    <source src="video/duel.webm" type='video/webm; codecs="vp8, vorbis"'>
+
+                </video>
+                <br>
+                <br>
+
+
+                <h4>
+                    VIDEO NOMI: {{ d.subject }}
+
+                </h4>
+
+
+                <div>
+
+
+                    <br>
+                    <div class="d-flex justify-content-between">
+                        <h6>{{ d.shown }} views</h6>
+                        
+                        <div style="font-size: 14px; margin-right: 26rem;">• {{ d.added_at }}</div>
+                       
+                        <div>
+                            <a href="{% url 'main:postlike' d.id 'u' %}" class="like badge badge-success"
+                                data-toggle="ajax" style="color: black;">{{ d.like }}</a>
+
+                            <b style="margin-left: 1rem;">|</b>
+
+                            <a href="{% url 'main:postlike' d.id 'd' %}" class="badge badge-danger dislike"
+                                data-toggle="ajax" style="color: black; margin-left: 1.3rem;">{{ d.dislike }}</a>
+                            <br>
+
+                            <h6>like <b>..</b> dislike</h6>
+
+                        </div>
+
+                    </div>
+                <div>
+                    <img src="/media/{{ d.user.photo }}" alt="" class="rounded-pill" style="width: 20px; height: 20px;">
+                    {{ user.username }}
+                </div>
+                </div>
+                <hr>
+                 
+                <br>
+                <br>
+                
+                <div class="d-flex justify-content-between">
+                    <input class="form-control mb-3 rounded-0" type="text"
+                        placeholder="Comment" aria-label="Comment">
+             
+                    <button class="btn btn-outline-secondary mb-3 rounded-0"
+                        type="submit"><i class="fas fa-arrow-up"></i></button>
+                </div>
+               
+            </div>
+
+               
+
+        </div>
+        <!--  -->
+
+        <div class="col-lg-none d-lg-none d-inline-block d-md-none col-12">
+            <div style="display: inline-block; position:absolute; left: 2%; top: -130%;">
+                <video width="700" height="600" controls="controls" poster="video/duel.jpg">
+                    <source src="video/duel.ogv" type='video/ogg; codecs="theora, vorbis"'>
+                    <source src="../../../media/{{ d.video }}" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+                    <source src="video/duel.webm" type='video/webm; codecs="vp8, vorbis"'>
+
+                </video>
+                <br>
+                <br>
+
+
+                <h4>
+                    VIDEO NOMI: {{ d.subject }}
+
+                </h4>
+
+
+                <div>
+
+
+                    <br>
+                    <div class="d-flex justify-content-between">
+                        <h6>{{ d.shown }} views</h6>
+                        
+                        <div style="font-size: 14px; margin-right: 26rem;">• {{ d.added_at }}</div>
+                       
+                        <div>
+                            <a href="{% url 'main:postlike' d.id 'u' %}" class="like badge badge-success"
+                                data-toggle="ajax" style="color: black;">{{ d.like }}</a>
+
+                            <b style="margin-left: 1rem;">|</b>
+
+                            <a href="{% url 'main:postlike' d.id 'd' %}" class="badge badge-danger dislike"
+                                data-toggle="ajax" style="color: black; margin-left: 1.3rem;">{{ d.dislike }}</a>
+                            <br>
+
+                            <h6>like <b>..</b> dislike</h6>
+
+                        </div>
+
+                    </div>
+                <div>
+                    <img src="/media/{{ user.photo }}" alt="" class="rounded-pill" style="width: 20px; height: 20px;">
+                    {{ user.username }}
+                </div>
+                </div>
+                <hr>
+                 
+                <br>
+                <br>
+                
+                <div class="d-flex justify-content-between">
+                    <input class="form-control mb-3 rounded-0" type="text"
+                        placeholder="Comment" aria-label="Comment">
+             
+                    <button class="btn btn-outline-secondary mb-3 rounded-0"
+                        type="submit"><i class="fas fa-arrow-up"></i></button>
+                </div>
+               
+               
+            </div>
+
+               
+
+        </div>
+
+        <!--  -->
+        <div class="col-lg-4 col-md-none col-none sidenav d-none d-lg-inline-block d-md-none ">
+            <div class="container">
+
+                {% for row in list %}
+
+
+
+                <div class="embed-responsive embed-responsive-16by9 vid">
+
+                    <a href="{% if row.id %}{% url 'main:video_viewer' row.id %}{% endif %}"><video width="100px"
+                            src="{{ row.video_url }}" alt="{{ row.subject }}" class="rounded"></video></a>
+                    <br>
+                    <br>
+                    <div class="rounded"
+                        style="font-family: 'Patrick Hand', cursive; border-style:groove;border-color: gray; color:darkslategrey;margin-top: 10rem;">
+
+                        <i class="bi-eye"></i>
+                        {{ row.shown }}
+                        
+                        <br>
+                        Video nomi: {{ row.subject }}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+            
+            </div>
+        </div>
+         <div class="d-lg-none d-none d-md-inline-block col-md-12" style="margin-top: 60rem;">
+            <div class="container">
+
+                {% for row in list %}
+
+
+
+                <div class="embed-responsive embed-responsive-16by9 vid">
+
+                    <a href="{% if row.id %}{% url 'main:video_viewer' row.id %}{% endif %}"><video width="100px"
+                            src="{{ row.video_url }}" alt="{{ row.subject }}" class="rounded"></video></a>
+                    <br>
+                    <br>
+                    <div class="rounded"
+                        style="font-family: 'Patrick Hand', cursive; border-style:groove;border-color: gray; color:darkslategrey;">
+
+                        <i class="bi-eye"></i>
+                        {{ row.shown }}
+                        
+                        <br>
+                        Video nomi: {{ row.subject }}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+            
+            </div>
+        </div>
+        <div class="d-lg-none d-md-none d-inline-block col-12" style="margin-top: 60rem;">
+            <div class="container">
+
+                {% for row in list %}
+
+
+
+                <div class="embed-responsive embed-responsive-16by9 vid">
+
+                    <a href="{% if row.id %}{% url 'main:video_viewer' row.id %}{% endif %}"><video width="100px"
+                            src="{{ row.video_url }}" alt="{{ row.subject }}" class="rounded"></video></a>
+                    <br>
+                    <br>
+                    <div class="rounded"
+                        style="font-family: 'Patrick Hand', cursive; border-style:groove;border-color: gray; color:darkslategrey;">
+
+                        <i class="bi-eye"></i>
+                        {{ row.shown }}
+                        
+                        <br>
+                        Video nomi: {{ row.subject }}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+            
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

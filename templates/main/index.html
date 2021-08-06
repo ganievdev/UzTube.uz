@@ -1,0 +1,116 @@
+{% extends 'layouts/layout.html' %}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+{% block index %}
+<link rel="stylesheet" href="{% static '../../assets/css/index.css' %}">
+{% endblock %}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+
+
+{% if list %}
+
+
+<form method="get" action="{% url 'main:index' %}" style="margin-top: 4rem;">
+    <!-- <div class="input-group d-flex ml-auto mr-auto mb-3" style="width: 50%; display: inline-block;">
+        <input type="search" class="form-control rounded" name="search" placeholder="Video nomi kiriting"
+            aria-label="Search" aria-describedby="search-addon" />
+
+    </div>
+
+    <button type="submit" class="btn btn-success d-flex ml-auto mr-auto">Search</button> -->
+
+    <div class="container">
+        <div class="row">
+            {% for row in list %}
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+
+                <div class="embed-responsive embed-responsive-16by9">
+
+                    <a href="{% if row.id %}{% url 'main:video_viewer' row.id %}{% endif %}"><video width="200px" style="height: 200px; margin-top: 2rem;" src="{{ row.video_url }}" alt="{{ row.subject }}" class="rounded"></video></a>
+                    <br>
+                    <br>
+                    
+                    
+                    <div class="rounded ml-2">
+                        <div style="margin-top: 3rem;" class="d-flex justify-content-between">
+                            
+                            <div>   
+                                <div class="d-flex justify-content-between"> 
+                            
+                                <a href="{% url 'main:profile_view' row.user.id %}"><img src="/media/{{ row.user.photo }}" style="width: 30px; height: 30px;" class="rounded-pill" alt=""></a><h6 style="margin-left:1rem; margin-top: 5px;"><b>{{ row.subject }}</b></h6>
+                            
+                            
+                                </div>
+                                <div class="d-flex justify-content-between">{{ row.user.username }}</div>
+                            </div>
+                
+                        <br>
+                        
+                        
+                            </div>
+                            {{ row.shown }}: views •
+                            <br>
+                            {{ row.added_at }}
+                    </div>
+
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</form>
+
+
+{% endif %}
+{% if subject %}
+
+
+<form method="GET" action="{% url 'main:search' %}" style="margin-top: 2rem;">
+    <!-- <div class="input-group d-flex ml-auto mr-auto mb-3" style="width: 50%; display: inline-block;">
+        <input type="search" class="form-control rounded" name="search" placeholder="Video nomi kiriting"
+            aria-label="Search" aria-describedby="search-addon" />
+
+    </div>
+
+    <button type="submit" class="btn btn-success d-flex ml-auto mr-auto">Search</button> -->
+
+    <div class="container">
+        <div class="row">
+            {% for row in subject %}
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+
+                <div class="embed-responsive embed-responsive-16by9">
+
+                    <a href="{% if row.id %}{% url 'main:video_viewer' row.id %}{% endif %}"><video width="100px"
+                            src="{{ row.video_url }}" alt="{{ row.subject }}" class="rounded"></video></a>
+                    <br>
+                    <br>
+                    <div class="rounded"
+                        style="font-family: 'Patrick Hand', cursive; border-style:groove;border-color: gray; color:darkslategrey;">
+
+                        <i class="bi-eye"></i>
+                        {{ row.shown }}
+                        <br>
+                        Video nomi: {{ row.subject }}
+
+                    </div>
+
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</form>
+
+
+{% endif %}
+
+{% include 'layouts/_search.html' %}
+{% endblock %}

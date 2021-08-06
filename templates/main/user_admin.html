@@ -1,0 +1,45 @@
+{% extends 'layouts/layout.html' %}
+
+{% block content %}
+<div class="row mt-4" >
+    {% for row in list %}
+
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        
+        <div class="embed-responsive embed-responsive-16by9">
+
+            <a href="{% if row.id %}{% url 'main:video_viewer' row.id %}{% endif %}"><video width="200px"
+                    style="height: 200px; margin-top: 2rem;" src="{{ row.video_url }}" alt="{{ row.user.subject }}"
+                    class="rounded"></video></a>
+            <br>
+            <br>
+            <!-- <a href="{% url 'main:delete' d.id %}" class="btn btn-success">delete</a> -->
+            <div class="rounded ml-2">
+                <div style="margin-top: 3rem;" class="d-flex justify-content-between">
+
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            <img src="/media/{{ row.user.photo }}" style="width: 30px; height: 30px;"
+                                class="rounded-pill" alt="">
+                            <h6 style="margin-left:1rem; margin-top: 5px;"><b>{{ row.subject }}</b></h6>
+                        </div>
+                        <div class="d-flex justify-content-between">{{ row.user.username }}</div>
+                    </div>
+
+                    <br>
+
+
+                </div>
+                {{ row.shown }}: views •
+                <br>
+                {{ row.added_at }}
+                {{ d.user. }}
+            </div>
+
+        </div>
+    </div>
+    <a href="{% url 'main:delete' row.id %}" class="btn btn-success">delete</a>
+    {% endfor %}
+</div>
+
+{% endblock %}

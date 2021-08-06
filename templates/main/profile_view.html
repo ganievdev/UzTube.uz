@@ -1,0 +1,57 @@
+{% extends 'layouts/layout.html' %}
+
+{% block content %}
+
+<!-- <div class="row">
+
+    
+    <div>
+        <img src="/media/{{ user.photo }}" style="width: 200px; height: 200px; margin-top: 6rem; margin-left: 26rem;"
+                                    class="rounded-pill" alt="">
+
+        <h5 style="margin-left: 31rem; margin-top: 2rem;">{{ request.user }}<br>Your Profile</h5>
+    </div>
+</div> -->
+
+<div class="row mt-4" >
+    {% for row in list %}
+
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        
+        <div class="embed-responsive embed-responsive-16by9">
+
+            <a href="{% if row.id %}{% url 'main:video_viewer' row.id %}{% endif %}"><video width="200px"
+                    style="height: 200px; margin-top: 2rem;" src="{{ row.video_url }}" alt="{{ row.user.subject }}"
+                    class="rounded"></video></a>
+            <br>
+            <br>
+          
+            <div class="rounded ml-2">
+                <div style="margin-top: 3rem;" class="d-flex justify-content-between">
+
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            <img src="/media/{{ row.user.photo }}" style="width: 30px; height: 30px;"
+                                class="rounded-pill" alt="">
+                            <h6 style="margin-left:1rem; margin-top: 5px;"><b>{{ row.subject }}</b></h6>
+                        </div>
+                        <div class="d-flex justify-content-between">{{ row.user.username }}</div>
+                    </div>
+
+                    <br>
+
+
+                </div>
+                {{ row.shown }}: views •
+                <br>
+                {{ row.added_at }}
+                {{ d.user. }}
+            </div>
+
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

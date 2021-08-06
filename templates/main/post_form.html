@@ -1,0 +1,50 @@
+{% extends 'layouts/layout.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6  col-12 ">
+            <div class="card w-100" style="background: none;">
+                <form class="box text-white" style="border-radius: 12px; box-shadow: 6px 6px 6px 6px black;"
+                    action="{% url 'main:create' %}" method="post" enctype="multipart/form-data">
+                    <h1>Video yuklash</h1>
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                    <button type="submit" class="btn btn-primary back">Saqlash</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+        <div class="card">
+            <div class="card-header">
+                Maqola qo'shish
+            </div>
+            <div class="card-body">
+                <form action="{% url 'main:create' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                    <button type="submit" class="btn btn-primary">Saqlash</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+
+{% endblock %}

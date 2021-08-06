@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uz Tube</title>
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" />
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/video.css' %}" />
+    {% block head %}
+    {% endblock %}
+    {% block index %}{% endblock %}
+
+</head>
+
+<body style="background-color: #F8F8FF;">
+
+    <nav class="navbar navbar-expand-lg bg-white fixed-top d-flex justify-content-between">
+        <a class="navbar-brand ml-4" href="{% url 'main:index' %}"><img src="{% static 'img/uztube.jpg' %}"
+                style="width: 100px; height: 60px;" alt=""></a>
+        <button class="navbar-toggler border-dark " type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon text-black-50"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+            <div class="d-flex align-items-center mx-auto">
+                 <form class="input-group search-form rounded" method="Get" action="{% url 'main:search' %}">
+                <div class="nav-item">
+                    <input class="form-control mt-1 rounded-0" name="query" type="search" placeholder="Search" style="width: 400px;" aria-label="Search">
+                </div>
+                <div class="nav-item">
+                    <button class="btn btn-outline-secondary mt-1 rounded-0" style="margin-left:0; width: 6rem;"
+                        type="submit"><i class="fas fa-search"></i></button>
+                
+                </div>
+                {% if user.is_authenticated %}
+                    <a class="nav-link" style="margin-left: 6rem; color: gray;" href="{% url 'main:create' %}"
+                        title="upload video"><i class="fas fa-video"></i></a>
+                {% endif %}
+                </form>
+
+                
+
+            </div>
+            
+            {% if user.is_authenticated %}
+                <div class="nav-item dropdown">
+
+                    <a class="nav-link dropdown-toggle text-secondary" href="" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    
+                        <img src="/media/{{ user.photo }}" class="rounded-pill" style="width: 50px; height: 50px;"
+                            alt="">
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'client:profile' %}" class=" h-100 mr-3 text-secondary  dropdown-item"
+                            data-toggle="tooltip" title="Profil">Profil</a>
+                        <a href="{% url 'main:profile_view' user.id %}" class="h-100 mr-3 text-secondary dropdown-item">Videolarim</a>
+                        <a href="{% url 'client:logout' %}" class=" h-100 mr-3 text-secondary  dropdown-item"
+                            data-toggle="tooltip" title="Tizimdan Chiqish">Chiqish</a>
+
+                        {% else %}
+                        <a href="{% url 'client:registration' %}" class=" nav-link text-secondary dropdown-item"
+                            data-toggle="tooltip" title="Ro'yhatdan o'tish">Signup</a>
+
+                        <a href="{% url 'client:profile' %}" class="nav-link  text-secondary  dropdown-item"
+                            data-toggle="tooltip" title="Tizimga kirish">Login</a>
+                        {% endif %}
+
+                    </div>
+
+
+
+
+                </div>
+                {% else %}
+                <div class="d-flex">
+                    <a href="{% url 'client:registration' %}"
+                        class=" nav-link text-secondary btn btn-outline-secondary rounded-0" data-toggle="tooltip"
+                        title="Ro'yhatdan o'tish">Sign up</a>
+
+                    <a href="{% url 'client:profile' %}"
+                        class="nav-link ml-2  text-secondary btn btn-outline-secondary rounded-0" data-toggle="tooltip"
+                        title="Tizimga kirish">Login</a>
+                </div>
+                {% endif %}
+        </div>
+    </nav>
+
+   
+    <!--  -->
+
+
+
+
+
+
+    <div class="container pt-4">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="{{ message.tags }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- {{ request.resolver_match.app_name }} - {{ request.resolver_match.url_name }} -->
+    <script src="{% static 'vendor/jquery.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'vendor/fontawesome/js/all.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>
